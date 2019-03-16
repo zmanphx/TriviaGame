@@ -18,11 +18,9 @@ $(document).ready(function() {
     timeLeft = 15;
     setTimeout(function() {
       runQuiz(questionArr[quCount]);
-    }, 4000);
+    }, 5000);
 
-    IstimerRun = true;
-   
-    /* setTimeout(timerExpired, 15000);*/
+    
   }
   
   var intervalId;
@@ -46,7 +44,9 @@ $(document).ready(function() {
       a1: "Tony Soprano",
       a2: "Anthony Scaramucci",
       a3: "Joey Fantone",
-      a4: "Anthony Carlito"
+      a4: "Anthony Carlito",
+      v1: "giphy6.gif",
+      v2: "snlwrong.gif"
     },
 
     question2: {
@@ -54,7 +54,9 @@ $(document).ready(function() {
       a1: "Canada",
       a2: "Mexico",
       a3: "Peru",
-      a4: "Ireland"
+      a4: "Ireland",
+      v1: "canada.gif",
+      v2: "thumbdown.gif"
     },
 
     question3: {
@@ -62,7 +64,9 @@ $(document).ready(function() {
       a1: "carbon",
       a2: "calcium ",
       a3: "iron",
-      a4: "phosphorus"
+      a4: "phosphorus",
+      v1: "diamond.gif",
+      v2: "brittanyno.gif"
     },
 
     question4: {
@@ -70,7 +74,9 @@ $(document).ready(function() {
       a1: "Spanish",
       a2: "English ",
       a3: "French",
-      a4: "Italian"
+      a4: "Italian",
+      v1: "spanish.gif",
+      v2: "nicetry.gif"
     },
 
     question5: {
@@ -78,7 +84,9 @@ $(document).ready(function() {
       a1: "full house",
       a2: "royal flush ",
       a3: "straight",
-      a4: "flush"
+      a4: "flush",
+      v1: "fullhouse.gif",
+      v2: "wrongbutton.gif"
     },
 
     question6: {
@@ -86,7 +94,9 @@ $(document).ready(function() {
       a1: "Mike Myers",
       a2: "Eddie Murphy",
       a3: "John Lithgow",
-      a4: "Chris Miller"
+      a4: "Chris Miller",
+      v1: "shrek.gif",
+      v2: "wrongshout.gif"
     },
 
     question7: {
@@ -94,7 +104,9 @@ $(document).ready(function() {
       a1: "Portuguese",
       a2: "Spanish ",
       a3: "Italian",
-      a4: "French"
+      a4: "French",
+      v1: "brazil.gif",
+      v2: "roseno.gif"
     },
 
     question8: {
@@ -102,15 +114,19 @@ $(document).ready(function() {
       a1: "Newman",
       a2: "Peterman",
       a3: "Sherman",
-      a4: "Wilson"
+      a4: "Wilson",
+      v1: "giphy5.gif",
+      v2: "no.gif"
     },
 
     question9: {
-      q1: "The 80s movie was Alan Rickman's first feature role?",
+      q1: "The 80s movie was Alan Rickman's first feature role",
       a1: "Die Hard",
       a2: "Quigley Down Under",
       a3: "January Man",
-      a4: "Robin Hood: Prince of Thieves"
+      a4: "Robin Hood: Prince of Thieves",
+      v1: "diehard.gif",
+      v2: "noturn.gif"
     },
 
     question10: {
@@ -118,7 +134,9 @@ $(document).ready(function() {
       a1: "Maine",
       a2: "Washington",
       a3: "Florida",
-      a4: "Michigan"
+      a4: "Michigan",
+      v1: "maine.gif",
+      v2: "wrongwrong.gif"
     }
   };
 
@@ -135,6 +153,8 @@ $(document).ready(function() {
     }
     return base;
   }
+  var imagev1;
+  var imagev2;
   var solvedAns;
   var questionArr = [
     "question1",
@@ -153,16 +173,21 @@ $(document).ready(function() {
     solvedAns = quizObj[quest].a1;
     var qShuffleArr = shuffle();
     $("#quizQuestion").text(quizObj[quest].q1);
-
+    
+    $("#theImg").remove();
     /* console.log(solvedAns);
     console.log(qShuffleArr[0]);
     console.log(quizObj.question1[qShuffleArr[0]]); */
-
+     $(".pick").css("background-color","");
+   
+   
     $("#a1").text(quizObj[quest][qShuffleArr[0]]);
     $("#a2").text(quizObj[quest][qShuffleArr[1]]);
     $("#a3").text(quizObj[quest][qShuffleArr[2]]);
     $("#a4").text(quizObj[quest][qShuffleArr[3]]);
-
+     
+    imagev1= quizObj[quest].v1;
+    imagev2= quizObj[quest].v2; 
     IstimerRun =true;
     clearInterval(intervalId);
     intervalId= setInterval(count,1000);
@@ -203,9 +228,7 @@ $(document).ready(function() {
       return;
     }
     
-    
-   
-     converted = timeConverter(timeLeft);
+    converted = timeConverter(timeLeft);
     console.log(converted);
     if (timeLeft === 0) {
       IstimerRun = false;
@@ -240,10 +263,23 @@ $(document).ready(function() {
     if (myobject === solvedAns) {
       console.log("the answer should be " + solvedAns);
       correctAns++;
+     
+     $(event.target).css({"background-color":"green"});
       console.log("correct " + correctAns);
+      $("#theImg").remove();
+      let imageStyle = "width:300px; height:300px; margin-left:100px;";
+      var imgpath = "assets/images/"+ imagev1;
+      $(".container").append("<img id='theImg' src='"+ imgpath  +"' style='"+ imageStyle +" ' "+">");
+
     } else {
       wrongAns++;
+      $(event.target).css({"background-color":"red"});
       console.log("wrong " + wrongAns);
+      $("#theImg").remove();
+      let imageStyle = "width:300px; height:300px; margin-left:100px;";
+      var imgpath = "assets/images/"+ imagev2;
+      $(".container").append("<img id='theImg' src='"+ imgpath  +"' style='"+ imageStyle +" ' "+">");
+
     }
     IstimerRun = false;
     timeExpired();
