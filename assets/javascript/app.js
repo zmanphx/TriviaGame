@@ -11,8 +11,16 @@ $(document).ready(function() {
 
   function timeExpired() {
     quCount++;
-    if (quCount == 10) {
+    if (quCount >= 10) {
       IstimerRun = false;
+      $('#title').text("Trivia Completed");
+      $('.resultAns').text("Total : You have  " + correctAns+ "  correct answers");
+      $('.resultAns').css({"background-color":""});
+      var newPara= $("<p>Wrong Answers: "+ wrongAns + "</p>");
+      var newPara2= $("<p> Unanswered: "+ unanswered + "</p>");
+      $('.resultAns').append(newPara);
+     
+      $('.resultAns').append(newPara2); 
       return;
     }
     timeLeft = 15;
@@ -27,17 +35,18 @@ $(document).ready(function() {
   var converted ;
   var correctAns = 0;
   var wrongAns = 0;
+  var unanswered= 0;
   var timeLeft = 0;
   var IstimerRun = false;
-  $("#quizQuestion").on("mouseenter", () => {
+/*   $("#quizQuestion").on("mouseenter", () => {
     $(".nav-menu").show(500);
-  });
+  }); */
   /* 
   $(".nav-menu").on("mouseleave", () => {
     $(".nav-menu").hide(500);
   });
  */
-
+$(".nav-menu").show(500);
   quizObj = {
     question1: {
       q1: "The name of mafia series crime boss on HBO",
@@ -168,7 +177,8 @@ $(document).ready(function() {
     "question9",
     "question10"
   ];
-
+   var liArr = ["#a1", "#a2", "#a3", "#a4"];
+   var pos=0;
   function runQuiz(quest) {
     solvedAns = quizObj[quest].a1;
     var qShuffleArr = shuffle();
@@ -179,43 +189,29 @@ $(document).ready(function() {
     console.log(qShuffleArr[0]);
     console.log(quizObj.question1[qShuffleArr[0]]); */
      $(".pick").css("background-color","");
-   
+     $('.resultAns').text("");
+     $('.resultAns').css({"background-color":""});
    
     $("#a1").text(quizObj[quest][qShuffleArr[0]]);
     $("#a2").text(quizObj[quest][qShuffleArr[1]]);
     $("#a3").text(quizObj[quest][qShuffleArr[2]]);
     $("#a4").text(quizObj[quest][qShuffleArr[3]]);
      
+    pos =  qShuffleArr.indexOf("a1"); 
     imagev1= quizObj[quest].v1;
     imagev2= quizObj[quest].v2; 
     IstimerRun =true;
     clearInterval(intervalId);
     intervalId= setInterval(count,1000);
-   
-   
+     
     $("#TimeLeft").text(converted);
   }
-  /* 
-  $("#Start").on("click", () => {
-    solvedAns = quizObj.question1.a1;
-    var qShuffleArr = shuffle();
-    $("#quizQuestion").text(quizObj.question1.q1);
-
-    /* console.log(solvedAns);
-    console.log(qShuffleArr[0]);
-    console.log(quizObj.question1[qShuffleArr[0]]); */
-
-  /*   $("#a1").text(quizObj.question1[qShuffleArr[0]]);
-    $("#a2").text(quizObj.question1[qShuffleArr[1]]);
-    $("#a3").text(quizObj.question1[qShuffleArr[2]]);
-    $("#a4").text(quizObj.question1[qShuffleArr[3]]);
-  }); */
-
+ 
   $("#Start").on("click", () => {
     timeLeft = 15;
     $("#TimeLeft").text(timeLeft);
     runQuiz(questionArr[quCount]);
-
+     $("#Start").hide();
     if (!IstimerRun) {
        IstimerRun = true;
       intervalId = setInterval(count, 1000);
@@ -232,6 +228,7 @@ $(document).ready(function() {
     console.log(converted);
     if (timeLeft === 0) {
       IstimerRun = false;
+      unanswered++;
       timeExpired();
       $("#TimeLeft").text(converted);
     }
@@ -264,17 +261,29 @@ $(document).ready(function() {
       console.log("the answer should be " + solvedAns);
       correctAns++;
      
-     $(event.target).css({"background-color":"green"});
+     $(event.target).css({"background-color":"#4CFF4C"});
       console.log("correct " + correctAns);
-      $("#theImg").remove();
+     $('.resultAns').text("Correct : You have  " + correctAns+ "  correct answers");
+     $('.resultAns').css({"background-color":"#4CFF4C"});
+     
+     $("#theImg").remove();
       let imageStyle = "width:300px; height:300px; margin-left:100px;";
       var imgpath = "assets/images/"+ imagev1;
       $(".container").append("<img id='theImg' src='"+ imgpath  +"' style='"+ imageStyle +" ' "+">");
 
-    } else {
+    } else {  // wrong selection
       wrongAns++;
-      $(event.target).css({"background-color":"red"});
+      $(event.target).css({"background-color":"#FF3333"});
       console.log("wrong " + wrongAns);
+      $('.resultAns').text("Incorrect : You have  " + wrongAns+ "  incorrect answers");
+     
+     
+       console.log("color " + liArr[pos]);
+
+      $(liArr[pos]).css({"background-color":"#4CFF4C"});
+
+
+     
       $("#theImg").remove();
       let imageStyle = "width:300px; height:300px; margin-left:100px;";
       var imgpath = "assets/images/"+ imagev2;

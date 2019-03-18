@@ -1,5 +1,5 @@
 body {
-  background-image: url("../images/ab1\ \(8\).jpg");
+  background-image: url("../images/trivia-money-for-winners.jpg");
 
   height: 100vh;
 }
@@ -16,7 +16,7 @@ body {
 #mainCont {
   display: flex;
   justify-content: center;
-  
+  margin: 0,auto;
 }
 
 .container {
@@ -28,12 +28,18 @@ body {
 li {
   font-size: 30px;
 }
+
+
+
 .quizCard,
 .quizQuestion {
   font-size: 30px;
   cursor: pointer;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
+.quizCard{margin: 0, auto;}
 #quizQuestion:hover {
   background-color: rgb(243, 243, 243);
   opacity: 0.85;
@@ -45,18 +51,34 @@ li {
 
 #title {
   font-size: 50px;
+
+  margin-top: 50px;
+  margin-right: 169px;
 }
 
-.time {
-  font-size: 25px;
-}
 
+
+.resultAns{
+ font-size: 25px;
+  width:450px; 
+  text-align: center;
+ 
+  }
 .btn {
   margin-top: 25px;
   width: 25%;
 }
 .card {
-  background: none;
+  background: whitesmoke;
+  opacity: 0.9;
+  width: 100%;
+  position: relative; 
+  height: auto;
+  margin: 0 auto;
+  border-radius: 15px;
+  border-color:gray;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .answer {
@@ -67,6 +89,7 @@ li {
 
 #question {
   font-size: 30px;
+  margin-bottom: 15px;
 }
 
 li:hover {
@@ -75,12 +98,20 @@ li:hover {
 
 .nav-menu:hover {
   display: flex;
+  
 }
 
 .nav-menu {
   margin-top: 20px;
   display: flex;
   justify-content: center;
+  background-color: white;
+  opacity: .90 ;
+  border-radius: 15px;
+  width : 100%;
+  border-color:gray;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .hide {
@@ -93,4 +124,5 @@ li:hover {
   font-size: 30px;
   background-color:whitesmoke;
   width: 230px;
+  text-align: center;
 }
