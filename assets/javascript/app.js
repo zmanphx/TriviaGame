@@ -178,12 +178,13 @@ $(".nav-menu").show(500);
     "question10"
   ];
    var liArr = ["#a1", "#a2", "#a3", "#a4"];
+   var isClick= false;
    var pos=0;
   function runQuiz(quest) {
     solvedAns = quizObj[quest].a1;
     var qShuffleArr = shuffle();
     $("#quizQuestion").text(quizObj[quest].q1);
-    
+      isClick= false;
     $("#theImg").remove();
     /* console.log(solvedAns);
     console.log(qShuffleArr[0]);
@@ -256,6 +257,8 @@ $(".nav-menu").show(500);
   $(".pick").on("click", () => {
     var myobject = $(event.target).text();
     console.log(myobject);
+     if( isClick){ return;}
+       else  {isClick = true;}
 
     if (myobject === solvedAns) {
       console.log("the answer should be " + solvedAns);
@@ -272,6 +275,8 @@ $(".nav-menu").show(500);
       $(".container").append("<img id='theImg' src='"+ imgpath  +"' style='"+ imageStyle +" ' "+">");
 
     } else {  // wrong selection
+     
+      
       wrongAns++;
       $(event.target).css({"background-color":"#FF3333"});
       console.log("wrong " + wrongAns);
